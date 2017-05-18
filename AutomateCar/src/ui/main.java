@@ -1,4 +1,4 @@
-package ui;
+/*package ui;
 
 import java.util.Scanner;
 
@@ -7,16 +7,16 @@ import jess.Rete;
 
 public class main {
 	
+	Scanner tempMax = new Scanner(System.in);
+		public 	Scanner temp = new Scanner(System.in);
+		public Scanner tempMin = new Scanner(System.in);
+		public 	Scanner distMax = new Scanner(System.in);
+		public Scanner time = new Scanner(System.in);
+		public Scanner horasMax = new Scanner(System.in);
+		public int humidade, chuva, oxigenio, luminosidade;
 	
 	public static void main(String[] args) throws JessException{
 		
-		Scanner tempMax = new Scanner(System.in);
-		Scanner temp = new Scanner(System.in);
-		Scanner tempMin = new Scanner(System.in);
-		Scanner distMax = new Scanner(System.in);
-		Scanner time = new Scanner(System.in);
-		Scanner horasMax = new Scanner(System.in);
-		int humidade, chuva, oxigenio, luminosidade;
 		Rete jess = new Rete();
 		
 		
@@ -48,3 +48,4 @@ public class main {
 	}
 	
 }
+*/
