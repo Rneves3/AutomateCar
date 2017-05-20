@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import jess.*;
+
 
 public class AutomateCarInterface {
 
@@ -58,6 +60,18 @@ public class AutomateCarInterface {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		try{
+			
+        Rete engine = new Rete();
+		engine.batch("teste.clp");
+		//engine.eval("(main)");
+		engine.run();
+		
+		}
+		catch(JessException je){
+			je.printStackTrace();
+		}
 		
 		frame = new JFrame();
 		frame.setResizable(false);
