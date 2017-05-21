@@ -38,6 +38,8 @@ import jess.*;
 		private boolean lightsOn = false;
 		private boolean lightsOff = false;
 		
+		boolean exited = false;
+		
 		
 		/**
 		 * Launch the application.
@@ -143,7 +145,7 @@ import jess.*;
 		lblFuel.setBounds(28, 276, 119, 14);
 		frame.getContentPane().add(lblFuel);
 		
-		JLabel lblPassengerWeight = new JLabel("Passenger Weight (kg)");
+		JLabel lblPassengerWeight = new JLabel("Distance (m)");
 		lblPassengerWeight.setBounds(28, 326, 119, 14);
 		frame.getContentPane().add(lblPassengerWeight);
 		
@@ -228,8 +230,8 @@ import jess.*;
 					return;
 				}
 				temperature++;
-				//updateTemp();
-				//controlTemp();
+				updateTemp();
+				controlTemp();
 				tempValLabel.setText("" + temperature);
 			}
 		});
@@ -244,8 +246,8 @@ import jess.*;
 					return;
 				}
 				temperature--;
-				//updateTemp();
-				//controlTemp();
+				updateTemp();
+				controlTemp();
 				tempValLabel.setText("" + temperature);
 			}
 		});
@@ -261,7 +263,7 @@ import jess.*;
 					return;
 				}
 				time++;
-				//updateTime();
+				updateTime();
 				timeValLabel.setText("" + time);
 			}
 		});
@@ -277,7 +279,7 @@ import jess.*;
 					return;
 				}
 				time--;
-				//updateTime();
+				updateTime();
 				timeValLabel.setText("" + time);
 			}
 		});
@@ -293,8 +295,8 @@ import jess.*;
 					return;
 				}
 				velocity++;
-				//updateVelocity();
-				//controlVelocity();
+				updateVelocity();
+				controlVelocity();
 				velValLabel.setText("" + velocity);
 			}
 		});
@@ -309,8 +311,8 @@ import jess.*;
 					return;
 				}
 				velocity--;
-				//updateVelocity();
-				//controlVelocity();
+				updateVelocity();
+				controlVelocity();
 				velValLabel.setText("" + velocity);
 			}
 		});
@@ -325,7 +327,7 @@ import jess.*;
 					return;
 				}
 				fuel++;
-				//updateFuel();
+				updateFuel();
 				fuelValLabel.setText("" + fuel);
 			}
 		});
@@ -341,7 +343,7 @@ import jess.*;
 					return;
 				}
 				fuel--;
-				//UpdateFuel();
+				updateFuel();
 				fuelValLabel.setText("" + fuel);
 			}
 		});
@@ -356,10 +358,10 @@ import jess.*;
 					return;
 				}
 				dist++;
-				//updateDist();
+				updateDist();
 				weightValLabel.setText("" + dist);
 			}
-		});
+		});		
 		weightIncButton.setBounds(279, 322, 46, 23);
 		frame.getContentPane().add(weightIncButton);
 		
@@ -372,7 +374,7 @@ import jess.*;
 					return;
 				}
 				dist--;
-				//updateDist();
+				updateDist();
 				weightValLabel.setText("" + dist);
 			}
 		});
@@ -385,8 +387,8 @@ import jess.*;
 			public void actionPerformed(ActionEvent e){
 				oxigenValLabel.setText("" + oxigen);
 				oxigen++;
-				//updateOxigen();
-				//controlOxigen();
+				updateOxigen();
+				controlOxigen();
 				return;
 			}
 				
@@ -399,8 +401,8 @@ import jess.*;
 		oxigenDecButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				oxigenValLabel.setText("" + oxigen);
-				//updateOxigen();
-				//controlOxigen();
+				updateOxigen();
+				controlOxigen();
 				return;
 			}
 		});
@@ -547,10 +549,23 @@ import jess.*;
 
 	public void controlOxigen(){
 		
-		if(temperature < 21){
-			System.out.print("\n Oxigen levels increasing\n");
+		if(oxigen < 21){
+			System.out.print("\n Temperature levels increasing\n");
 			oxigen = 21;
 		}
 	}
 	
+	public void controlTemp(){
+		
+		if(temperature > 25){
+			System.out.print("\n Too hot!\n");
+			
+			temperature = 24;
+		}
+		
+		if(temperature < -15){
+			System.out.print("\n Too cold!\n");
+			temperature = 0;
+		}
+	}
 }
