@@ -20,12 +20,12 @@ import jess.*;
 		private JFrame frame;
 		
 		//environment variables
-		public float temperature 	 = 27;
-		public float time 			 = 16;
-		public float velocity 		 = 166;
-		public float fuel 			 = 2;
-		public float dist			 = 1;
-		public float oxigen 		 = 25;
+		public static float temperature;
+		public static float time;
+		public static float velocity;
+		public static float fuel;
+		public static float dist;
+		public static float oxigen;
 		public static String weather;
 
 		//car variables
@@ -51,6 +51,24 @@ import jess.*;
 					"\nIs it Sunny or Cloudy?\n");
 			Scanner in = new Scanner(System.in);
 			weather = in.next();
+			
+			System.out.print("Testing temperaute :\n");
+			temperature = in.nextInt();
+			
+			System.out.print("Testing time :\n");
+			time = in.nextInt();
+			
+			System.out.print("Testing velocity :\n");
+			velocity = in.nextInt();
+			
+			System.out.print("Testing fuel :\n");
+			fuel = in.nextInt();
+			
+			System.out.print("Testing distance :\n");
+			dist = in.nextInt();
+			
+			System.out.print("Testing oxigen levels :\n");
+			oxigen = in.nextInt();
 			
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
@@ -543,6 +561,7 @@ import jess.*;
 		
 		if(velocity > 150){
 			System.out.print("\n Car is slowing down\n");
+			Thread.sleep(2000);
 			velocity = 120;
 		}
 	}
@@ -558,13 +577,14 @@ import jess.*;
 	public void controlTemp(){
 		
 		if(temperature > 25){
-			System.out.print("\n Too hot!\n");
-			
+			System.out.print("\n Too hot! Settling temperature!\n");
+			Thread.sleep(2000);
 			temperature = 24;
 		}
 		
-		if(temperature < -15){
-			System.out.print("\n Too cold!\n");
+		if(temperature < 15){
+			System.out.print("\n Too cold! Settling temperature!\n");
+			Thread.sleep(2000);
 			temperature = 0;
 		}
 	}
