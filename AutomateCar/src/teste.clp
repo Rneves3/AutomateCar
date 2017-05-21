@@ -1,7 +1,15 @@
 (import nrc.fuzzy.jess.*)
 (import nrc.fuzzy.*)
 
+
 ;;  variables
+
+(defglobal ?*tmprt* = 13)
+(defglobal ?*hars* = 16)
+(defglobal ?*vct* = 115)
+(defglobal ?*gas* = 6)
+(defglobal ?*air* = 15)
+(defglobal ?*dst* = 1)
 
 (deftemplate temperature     (slot celsius))
 (deftemplate time            (slot hours))
@@ -11,11 +19,21 @@
 (deftemplate distance		 (slot maxDist))
 
 
+;;function
+
+(deffunction parameters (?tmprt ?hars ?vct ?gas ?air ?dst)
+    (bind ?*tmprt* ?tmprt)
+    (bind ?*hars* ?hars)
+    (bind ?*vct* ?vct)
+    (bind ?*gas* ?gas)
+    (bind ?*air* ?air)
+    (bind ?*dst* ?tdst))
+
 ;;  facts
 
-(assert (temperature (celsius 27)))
-(assert (velocity (kmh 160)))
-(assert (fuel (litres 3)))
+;;(assert (temperature (celsius ?*tmprt*)))
+;;(assert (velocity (kmh ?*vct*)))
+;;(assert (fuel (litres ?*gas*)))
 (assert(Sunny))
 
 (facts)

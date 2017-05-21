@@ -1,3 +1,5 @@
+package ui;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-import jess.*;
+//import jess.*;
 
 
 public class AutomateCarInterface {
@@ -17,21 +19,22 @@ public class AutomateCarInterface {
 	private JFrame frame;
 	
 	//enrionment variables
-	private float temperature 	 = 0;
-	private float time 			 = 0;
-	private float velocity 		 = 0;
-	private float fuel 			 = 0;
-	private float passengerWeight = 0;
-	private float oxigen 		 = 0;
+	public float temperature 	 = 27;
+	public float time 			 = 16;
+	public float velocity 		 = 166;
+	public float fuel 			 = 2;
+	public float dist			 = 1;
+	public float oxigen 		 = 26;
+	public boolean exited = false;
 
 	//car variables
-	private boolean hotAir = false;
-	private boolean coldAir = false;
+	public boolean hotAir = false;
+	public boolean coldAir = false;
 	
-	private boolean openWindows = false;
-	private boolean closeWindows = false;
+	public boolean openWindows = false;
+	public boolean closeWindows = false;
 	
-	private boolean airbag = false;
+	public boolean airbag = false;
 	
 	/**
 	 * Launch the application.
@@ -61,17 +64,24 @@ public class AutomateCarInterface {
 	 */
 	private void initialize() {
 		
-		try{
+	/*	try{
 			
         Rete engine = new Rete();
 		engine.batch("teste.clp");
+		engine.eval("(deftemplate temperature (slot celsius))");
+		
+		Fact f = new Fact("temperature", engine);
+		f.setSlotValue("celsius", new Value(temperature1, RU.FLOAT));
+		engine.assertFact(f);
+		engine.eval("(facts)");
+		//engine.eval("parameters ("+ temperature1 + " " + time + " " + velocity + " " + fuel + " " + oxigen + " " + 2 + ")");
 		//engine.eval("(main)");
 		engine.run();
 		
 		}
 		catch(JessException je){
 			je.printStackTrace();
-		}
+		}*/
 		
 		frame = new JFrame();
 		frame.setResizable(false);
@@ -166,6 +176,10 @@ public class AutomateCarInterface {
 		JLabel oxigenMsgLabel = new JLabel("Nothing to show.");
 		oxigenMsgLabel.setBounds(413, 385, 271, 14);
 		frame.getContentPane().add(oxigenMsgLabel);
+		
+		/*JLabel exitLabel = new JLabel("Nothing to show.");
+		exitLabel.setBounds(413, 475, 271, 14);
+		frame.getContentPane().add(exitLabel);*/
 		
 //BUTTONS
 		JButton tempIncButton = new JButton("+");
@@ -287,12 +301,12 @@ public class AutomateCarInterface {
 		JButton weightIncButton = new JButton("+");
 		weightIncButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				if(passengerWeight >= 400){
-					weightValLabel.setText("" + passengerWeight);
+				if(dist >= 400){
+					weightValLabel.setText("" + dist);
 					return;
 				}
-				passengerWeight++;
-				weightValLabel.setText("" + passengerWeight);
+				dist++;
+				weightValLabel.setText("" + dist);
 			}
 		});
 		weightIncButton.setBounds(279, 322, 46, 23);
@@ -302,12 +316,12 @@ public class AutomateCarInterface {
 		JButton weightDecButton = new JButton("-");
 		fuelIncButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				if(passengerWeight <= 0){
-					weightValLabel.setText("" + passengerWeight);
+				if(dist <= 0){
+					weightValLabel.setText("" + dist);
 					return;
 				}
-				passengerWeight++;
-				weightValLabel.setText("" + passengerWeight);
+				dist++;
+				weightValLabel.setText("" + dist);
 			}
 		});
 		weightDecButton.setBounds(346, 322, 46, 23);
@@ -334,7 +348,21 @@ public class AutomateCarInterface {
 		});
 		oxigenDecButton.setBounds(346, 376, 46, 23);
 		frame.getContentPane().add(oxigenDecButton);
-//-----
+	
+		JButton exitBtn = new JButton("exit");
+		exitBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				
+				exited = true;
+				//exitLabel.setText("");
+				if(exited == true)
+					System.exit(0);
+					return;
+			}
 		
-	}
-}
+		});
+		exitBtn.setBounds(300, 475, 60, 35);
+		frame.getContentPane().add(exitBtn);
+		
+		
+		}}
