@@ -11,77 +11,115 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-//import jess.*;
+import java.util.*;
+import jess.*;
 
 
-public class AutomateCarInterface {
+	public class AutomateCarInterface {
 
-	private JFrame frame;
-	
-	//enrionment variables
-	public float temperature 	 = 27;
-	public float time 			 = 16;
-	public float velocity 		 = 166;
-	public float fuel 			 = 2;
-	public float dist			 = 1;
-	public float oxigen 		 = 26;
-	public boolean exited = false;
-
-	//car variables
-	public boolean hotAir = false;
-	public boolean coldAir = false;
-	
-	public boolean openWindows = false;
-	public boolean closeWindows = false;
-	
-	public boolean airbag = false;
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AutomateCarInterface window = new AutomateCarInterface();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public AutomateCarInterface() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+		private JFrame frame;
 		
-	/*	try{
+		//environment variables
+		public float temperature 	 = 27;
+		public float time 			 = 16;
+		public float velocity 		 = 166;
+		public float fuel 			 = 2;
+		public float dist			 = 1;
+		public float oxigen 		 = 25;
+		public static String weather;
+
+		//car variables
+		private boolean hotAir = false;
+		private boolean coldAir = false;
+		
+		private boolean openWindows = false;
+		private boolean closeWindows = false;
+		
+		private boolean lightsOn = false;
+		private boolean lightsOff = false;
+		
+		
+		/**
+		 * Launch the application.
+		 */
+		public static void main(String[] args) {
 			
-        Rete engine = new Rete();
-		engine.batch("teste.clp");
-		engine.eval("(deftemplate temperature (slot celsius))");
-		
-		Fact f = new Fact("temperature", engine);
-		f.setSlotValue("celsius", new Value(temperature1, RU.FLOAT));
-		engine.assertFact(f);
-		engine.eval("(facts)");
-		//engine.eval("parameters ("+ temperature1 + " " + time + " " + velocity + " " + fuel + " " + oxigen + " " + 2 + ")");
-		//engine.eval("(main)");
-		engine.run();
-		
+			System.out.print("Hey there! Welcome to the smart car!" +
+					" Please tell me how is the weather today! " +
+					"\nIs it Sunny or Cloudy?\n");
+			Scanner in = new Scanner(System.in);
+			weather = in.next();
+			
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						AutomateCarInterface window = new AutomateCarInterface();
+						window.frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
 		}
-		catch(JessException je){
-			je.printStackTrace();
-		}*/
+
+		/**
+		 * Create the application.
+		 */
+		public AutomateCarInterface() {
+			initialize();
+		}
+
+		/**
+		 * Initialize the contents of the frame.
+		 */
+		private void initialize() {
+			
+			try{
+				
+	        Rete engine = new Rete();
+			engine.batch("teste.clp");
+			
+			engine.eval("(deftemplate temperature (slot celsius))");
+			Fact f = new Fact("temperature", engine);
+			f.setSlotValue("celsius", new Value(temperature, RU.FLOAT));
+			engine.assertFact(f);
+			
+			engine.eval("(deftemplate time (slot hours))");
+			Fact t = new Fact("time", engine);
+			t.setSlotValue("hours", new Value(time, RU.FLOAT));
+			engine.assertFact(t);
+			
+			engine.eval("(deftemplate velocity (slot kmh))");
+			Fact v = new Fact("velocity", engine);
+			v.setSlotValue("kmh", new Value(velocity, RU.FLOAT));
+			engine.assertFact(v);
+			
+			engine.eval("(deftemplate fuel (slot litres))");
+			Fact g = new Fact("fuel", engine);
+			g.setSlotValue("litres", new Value(fuel, RU.FLOAT));
+			engine.assertFact(g);
+			
+			engine.eval("(deftemplate oxigen (slot cubic))");
+			Fact o = new Fact("oxigen", engine);
+			o.setSlotValue("cubic", new Value(oxigen, RU.FLOAT));
+			engine.assertFact(o);
+			
+			engine.eval("(deftemplate distance (slot maxDist))");
+			Fact d = new Fact("distance", engine);
+			d.setSlotValue("maxDist", new Value(dist, RU.FLOAT));
+			engine.assertFact(d);
+			
+			Fact w = new Fact(""+ weather, engine);
+			engine.assertFact(w);
+			
+			//engine.eval("(facts)");
+			//engine.eval("parameters ("+ temperature1 + " " + time + " " + velocity + " " + fuel + " " + oxigen + " " + 2 + ")");
+			engine.run();
+			
+			}
+			catch(JessException je){
+				je.printStackTrace();
+			}
 		
 		frame = new JFrame();
 		frame.setResizable(false);
@@ -190,6 +228,8 @@ public class AutomateCarInterface {
 					return;
 				}
 				temperature++;
+				//updateTemp();
+				//controlTemp();
 				tempValLabel.setText("" + temperature);
 			}
 		});
@@ -204,6 +244,8 @@ public class AutomateCarInterface {
 					return;
 				}
 				temperature--;
+				//updateTemp();
+				//controlTemp();
 				tempValLabel.setText("" + temperature);
 			}
 		});
@@ -219,6 +261,7 @@ public class AutomateCarInterface {
 					return;
 				}
 				time++;
+				//updateTime();
 				timeValLabel.setText("" + time);
 			}
 		});
@@ -234,6 +277,7 @@ public class AutomateCarInterface {
 					return;
 				}
 				time--;
+				//updateTime();
 				timeValLabel.setText("" + time);
 			}
 		});
@@ -249,6 +293,8 @@ public class AutomateCarInterface {
 					return;
 				}
 				velocity++;
+				//updateVelocity();
+				//controlVelocity();
 				velValLabel.setText("" + velocity);
 			}
 		});
@@ -263,6 +309,8 @@ public class AutomateCarInterface {
 					return;
 				}
 				velocity--;
+				//updateVelocity();
+				//controlVelocity();
 				velValLabel.setText("" + velocity);
 			}
 		});
@@ -277,6 +325,7 @@ public class AutomateCarInterface {
 					return;
 				}
 				fuel++;
+				//updateFuel();
 				fuelValLabel.setText("" + fuel);
 			}
 		});
@@ -292,6 +341,7 @@ public class AutomateCarInterface {
 					return;
 				}
 				fuel--;
+				//UpdateFuel();
 				fuelValLabel.setText("" + fuel);
 			}
 		});
@@ -306,6 +356,7 @@ public class AutomateCarInterface {
 					return;
 				}
 				dist++;
+				//updateDist();
 				weightValLabel.setText("" + dist);
 			}
 		});
@@ -320,7 +371,8 @@ public class AutomateCarInterface {
 					weightValLabel.setText("" + dist);
 					return;
 				}
-				dist++;
+				dist--;
+				//updateDist();
 				weightValLabel.setText("" + dist);
 			}
 		});
@@ -332,8 +384,12 @@ public class AutomateCarInterface {
 		oxigenIncButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				oxigenValLabel.setText("" + oxigen);
+				oxigen++;
+				//updateOxigen();
+				//controlOxigen();
 				return;
 			}
+				
 		});
 		oxigenIncButton.setBounds(279, 376, 46, 23);
 		frame.getContentPane().add(oxigenIncButton);
@@ -343,6 +399,8 @@ public class AutomateCarInterface {
 		oxigenDecButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				oxigenValLabel.setText("" + oxigen);
+				//updateOxigen();
+				//controlOxigen();
 				return;
 			}
 		});
@@ -365,4 +423,134 @@ public class AutomateCarInterface {
 		frame.getContentPane().add(exitBtn);
 		
 		
+		}
+		private void updateTemp() {
+			
+			try{
+				
+	        Rete engine = new Rete();
+			engine.batch("teste.clp");
+			
+			engine.eval("(deftemplate temperature (slot celsius))");
+			Fact f = new Fact("temperature", engine);
+			f.setSlotValue("celsius", new Value(temperature, RU.FLOAT));
+			engine.assertFact(f);
+			
+			engine.run();
+			}
+			catch(JessException je){
+				je.printStackTrace();
+			}}
+
+	private void updateTime() {
+		
+		try{
+			
+	    Rete engine = new Rete();
+		engine.batch("teste.clp");
+		
+		engine.eval("(deftemplate time (slot hours))");
+		Fact t = new Fact("time", engine);
+		t.setSlotValue("hours", new Value(time, RU.FLOAT));
+		engine.assertFact(t);
+		
+		Fact w = new Fact(""+ weather, engine);
+		engine.assertFact(w);
+		
+		engine.run();
+		}
+		catch(JessException je){
+			je.printStackTrace();
 		}}
+
+	private void updateVelocity() {
+		
+		try{
+			
+	    Rete engine = new Rete();
+		engine.batch("teste.clp");
+		
+		engine.eval("(deftemplate velocity (slot kmh))");
+		Fact v = new Fact("velocity", engine);
+		v.setSlotValue("kmh", new Value(velocity, RU.FLOAT));
+		engine.assertFact(v);
+
+		engine.run();
+		}
+		catch(JessException je){
+			je.printStackTrace();
+		}}
+
+	private void updateFuel() {
+		
+		try{
+			
+	    Rete engine = new Rete();
+		engine.batch("teste.clp");
+
+		engine.eval("(deftemplate fuel (slot litres))");
+		Fact g = new Fact("fuel", engine);
+		g.setSlotValue("litres", new Value(fuel, RU.FLOAT));
+		engine.assertFact(g);
+		
+		engine.run();
+		}
+		catch(JessException je){
+			je.printStackTrace();
+		}}
+
+	private void updateOxigen() {
+		
+		try{
+			
+	    Rete engine = new Rete();
+		engine.batch("teste.clp");
+		
+		engine.eval("(deftemplate oxigen (slot cubic))");
+		Fact o = new Fact("oxigen", engine);
+		o.setSlotValue("cubic", new Value(oxigen, RU.FLOAT));
+		engine.assertFact(o);
+		
+		engine.run();
+		}
+		catch(JessException je){
+			je.printStackTrace();
+		}}
+
+
+	private void updateDist() {
+		
+		try{	
+			
+		Rete engine = new Rete();
+		engine.batch("teste.clp");
+		
+		engine.eval("(deftemplate distance (slot maxDist))");
+		Fact d = new Fact("distance", engine);
+		d.setSlotValue("maxDist", new Value(dist, RU.FLOAT));
+		engine.assertFact(d);
+		
+		engine.run();
+		}
+		catch(JessException je){
+			je.printStackTrace();
+		}	}
+
+
+	public void controlVelocity(){
+		
+		if(velocity > 150){
+			System.out.print("\n Car is slowing down\n");
+			velocity = 120;
+		}
+	}
+
+	public void controlOxigen(){
+		
+		if(temperature < 21){
+			System.out.print("\n Oxigen levels increasing\n");
+			oxigen = 21;
+		}
+	}
+	
+}

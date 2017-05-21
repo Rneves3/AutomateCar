@@ -34,7 +34,7 @@
 ;;(assert (temperature (celsius ?*tmprt*)))
 ;;(assert (velocity (kmh ?*vct*)))
 ;;(assert (fuel (litres ?*gas*)))
-(assert(Sunny))
+;;(assert(Sunny))
 
 (facts)
 
