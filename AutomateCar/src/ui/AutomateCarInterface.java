@@ -385,7 +385,7 @@ import jess.*;
 		
 		
 		JButton weightDecButton = new JButton("-");
-		fuelIncButton.addActionListener(new ActionListener() {
+		weightDecButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				if(dist <= 0){
 					weightValLabel.setText("" + dist);
